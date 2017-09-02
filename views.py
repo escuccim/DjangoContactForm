@@ -1,14 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
 from django.core.mail import send_mail
 from .forms import ContactForm
-from django.shortcuts import render, render_to_response, redirect
-from django.http import HttpResponse
-from django.core.mail import EmailMessage
-from django.template import Context
-from django.template.loader import get_template
+from django.shortcuts import render
 from django.conf import settings
 from django.template import loader
 
