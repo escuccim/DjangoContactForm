@@ -13,24 +13,20 @@ from django.conf import settings
 from django.template import loader
 
 def Contact(request):
-    errors = None
-    contact_name = ''
-    contact_email = ''
-    contact_subject = ''
-    contact_content = ''
 
     if request.method == 'POST':
         contact_form = ContactForm(data=request.POST)
-        contact_name = request.POST.get('name', '')
-        contact_email = request.POST.get('email', '')
-        contact_content = request.POST.get('message', '')
-        contact_subject = request.POST.get('subject', '')
 
         if contact_form.is_valid():
-            message_details = {'contact_name': contact_name,'contact_email': contact_email,'form_content': contact_content,}
+            contact_name = request.POST.get('name', '')
+            contact_email = request.POST.get('email', '')
+            contact_content = request.POST.get('message', '')
+            contact_subject = request.POST.get('subject', '')
+            message_details = {'contact_name': contact_name,'contact_email': contact_email,'form_content': contact_content}
+
             html_message = loader.render_to_string('contact/contact_template.html', message_details)
 
-            send_mail(contact_subject, contact_content, contact_email, [settings.DEFAULT_FROM_EMAIL], fail_silently=True, html_message=html_message)
+            send_mail(contact_subject, contact_content, contact_email, [settings.DEFAULT_FROM_EMAIL], fail_silently=False, html_message=html_message)
 
             contact_form = ContactForm()
             return render(request, 'contact/contact.html', { 'contact_form' : contact_form, 'message' : 'Your message has been sent'})
@@ -40,6 +36,6 @@ def Contact(request):
     else:
         contact_form = ContactForm()
 
-    context_dict = { 'contact_form' : contact_form, 'message' : None, 'errors' : errors, 'contact_name' : contact_name, 'contact_email': contact_email, 'contact_subject': contact_subject, 'contact_content': contact_content}
+    context_dict = { 'contact_form' : contact_form, 'message' : None}
 
     return render(request, 'contact/contact.html', context_dict )

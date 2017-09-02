@@ -10,7 +10,7 @@ class BootstrapModelForm(forms.Form):
             })
 
 class ContactForm(BootstrapModelForm):
-    name = forms.CharField(max_length=128, required=True)
-    subject = forms.CharField(max_length=128, required=True)
-    email = forms.EmailField(required=True)
-    message = forms.CharField(widget=forms.Textarea, required=True)
+    name = forms.CharField(label="Name",max_length=128, required=True)
+    subject = forms.CharField(label="Subject",max_length=128, required=True)
+    email = forms.EmailField(required=True, label="Email")
+    message = forms.CharField(widget=forms.Textarea, required=True, label="Message")
