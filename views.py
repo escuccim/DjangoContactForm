@@ -25,7 +25,7 @@ def Contact(request):
             context = {'contact_name': contact_name,'contact_email': contact_email,'form_content': contact_content,}
             content = template.render(context)
 
-            email = EmailMessage("New contact form submission",content,"Contact message <" + contact_email + ">",[settings.EMAIL_FROM_ADDRESS],headers={'Reply-To': contact_email})
+            email = EmailMessage("New contact form submission",content,"Contact message <" + contact_email + ">",[settings.DEFAULT_FROM_EMAIL],headers={'Reply-To': contact_email})
             email.send()
 
             contact_form = ContactForm()
