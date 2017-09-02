@@ -1,0 +1,5 @@
+<p>From : {{ contact_name }} <{{ contact_email }}>
+<p>Subject : {{ contact_subject }}
+
+<p>Message: <br>
+{{ contact_content }}
