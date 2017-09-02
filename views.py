@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.core.mail import EmailMessage
 from django.template import Context
 from django.template.loader import get_template
+from django.conf import settings
 
 def Contact(request):
     if request.method == 'POST':
@@ -20,11 +21,11 @@ def Contact(request):
             contact_content = request.POST.get('message', '')
             contact_subject = request.POST.get('subject', '')
 
-            template = get_template('contact/contact_template.txt')
+            template = get_template('contact/contact_template.html')
             context = {'contact_name': contact_name,'contact_email': contact_email,'form_content': contact_content,}
             content = template.render(context)
 
-            email = EmailMessage("New contact form submission",content,"Your website" + '',['skooch@gmail.com'],headers={'Reply-To': contact_email})
+            email = EmailMessage("New contact form submission",content,"Contact message <" + contact_email + ">",[settings.EMAIL_FROM_ADDRESS],headers={'Reply-To': contact_email})
             email.send()
 
             contact_form = ContactForm()
