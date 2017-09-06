@@ -1,31 +1,32 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}Contact Me{% endblock %}
 
 {% block body %}
-<h1>Contact Me</h1>
+<h1>{% trans "Contact Me" %}</h1>
 <div class="panel panel-default">
     <div class="panel-body">
         {% if message %}
             <div class="alert alert-success">{{ message }}</div>
         {% endif %}
         {% if errors %}
-            <div class="alert alert-danger">Please correct the errors below:</div>
+            <div class="alert alert-danger">{% trans "Please correct the errors below" %}:</div>
         {% endif %}
         <form action="{% url 'contact:contact' %}" method="POST" class="form form-horizontal">
             {% csrf_token %}
             {% for field in contact_form %}
                 <div class="form-group	">
                     {{ field.errors }}
-                    <label for="{{ field.id_for_label }}" class="control-label col-md-1">{{ field.label }}</label>
-                    <div class="col-md-10">
+                    <label for="{{ field.id_for_label }}" class="control-label col-md-2">{{ field.label }} :</label>
+                    <div class="col-md-9">
                         {{ field }}
                     </div>
                 </div>
             {% endfor %}
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary center-block">Send Message</button>
+                <button type="submit" class="btn btn-primary center-block">{% trans "Send Message" %}</button>
             </div>
         </form>
     </div>
