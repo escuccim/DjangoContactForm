@@ -6,6 +6,7 @@ from .forms import ContactForm
 from django.shortcuts import render
 from django.conf import settings
 from django.template import loader
+from django.utils.translation import ugettext_lazy as _
 
 def Contact(request):
 
@@ -24,7 +25,7 @@ def Contact(request):
             send_mail(contact_subject, contact_content, contact_email, [settings.DEFAULT_FROM_EMAIL], fail_silently=False, html_message=html_message)
 
             contact_form = ContactForm()
-            return render(request, 'contact/contact.html', { 'contact_form' : contact_form, 'message' : 'Your message has been sent'})
+            return render(request, 'contact/contact.html', { 'contact_form' : contact_form, 'message' : _('Your message has been sent')})
         else:
             errors = contact_form.errors
 
